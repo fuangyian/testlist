@@ -1,0 +1,233 @@
+# GLaDOS Andriod Clash Config File for Mozilla 0.0.1
+# Sat Jul 03 2021 09:47:42 GMT+0000 (UTC)
+
+# port of HTTP
+port: 7890
+
+# port of SOCKS5
+socks-port: 7891
+
+allow-lan: true
+
+# Rule / Global/ DIRECT (default is Rule)
+mode: Rule
+
+# set log level to stdout (default is info)
+# info / warning / error / debug
+log-level: info
+
+# A RESTful API for clash
+external-controller: 127.0.0.1:9090
+
+# Secret for RESTful API (Optional)
+secret: ""
+
+dns:
+  enable: false # set true to enable dns (default is false)
+  listen: 127.0.0.1:53
+  nameserver:
+     - 119.29.29.29
+     - 114.114.114.114
+  fallback: # concurrent request with nameserver, fallback used when GEOIP country isn't CN
+     - tls://1.0.0.1:853
+     - tls://dns.google:853
+
+proxies:
+  - name: "backHome"
+    type: ss
+    server: fuxyz.ddnsfree.com
+    port: 53333
+    cipher: chacha20
+    password: fangyan
+    # udp: true
+
+
+proxy-groups:
+  - name: Auto
+    type: "url-test"
+    url: "http://www.gstatic.cn/generate_204"
+    interval: 300
+    tolerance: 30
+    proxies:
+        - backHome
+
+  - name: Proxy
+    type: "select"
+    proxies:
+        - "Auto"
+        - backHome
+
+
+  - name: NETFLIX
+    type: "select"
+    proxies:
+        - "backHome"
+
+  - name: Geo
+    type: "url-test"
+    url: "http://www.gstatic.cn/generate_204"
+    interval: 60000
+    tolerance: 30
+    proxies:
+        - backHome
+
+rules:
+# check first
+- DOMAIN-SUFFIX,qq.com,DIRECT
+- DOMAIN-SUFFIX,taobao.com,DIRECT
+- DOMAIN-SUFFIX,baidu.com,DIRECT
+- DOMAIN-SUFFIX,weibo.com,DIRECT
+- DOMAIN-SUFFIX,jd.com,DIRECT
+- DOMAIN-SUFFIX,tmall.com,DIRECT
+- DOMAIN-SUFFIX,360.cn,DIRECT
+- DOMAIN-SUFFIX,zhihu.com,DIRECT
+- DOMAIN-SUFFIX,com.cn,DIRECT
+
+# hot fix
+- DOMAIN,services.googleapis.cn,Proxy
+- DOMAIN,googleapis.cn,Proxy
+- DOMAIN-SUFFIX,ping.pe,Proxy
+- DOMAIN-SUFFIX,xn--ngstr-lra8j.com,Proxy
+
+# > Bilibili
+- DOMAIN-KEYWORD,bilibili,DIRECT
+- DOMAIN-SUFFIX,acg.tv,DIRECT
+- DOMAIN-SUFFIX,acgvideo.com,DIRECT
+- DOMAIN-SUFFIX,b23.tv,DIRECT
+- DOMAIN-SUFFIX,biliapi.com,DIRECT
+- DOMAIN-SUFFIX,biliapi.net,DIRECT
+- DOMAIN-SUFFIX,bilibili.com,DIRECT
+- DOMAIN-SUFFIX,biligame.com,DIRECT
+- DOMAIN-SUFFIX,biligame.net,DIRECT
+- DOMAIN-SUFFIX,hdslb.com,DIRECT
+- DOMAIN-SUFFIX,im9.com,DIRECT
+
+# common site
+- DOMAIN,ifconfig.me,Proxy
+- DOMAIN,services.googleapis.cn,Proxy
+- DOMAIN,google.com,Proxy
+- DOMAIN-SUFFIX,google.cn,Proxy
+- DOMAIN-SUFFIX,googleapis.cn,Proxy
+- DOMAIN-KEYWORD,facebook,Proxy
+- DOMAIN-SUFFIX,fb.me,Proxy
+- DOMAIN-KEYWORD,gmail,Proxy
+- DOMAIN-KEYWORD,twitter,Proxy
+- DOMAIN-KEYWORD,instagram,Proxy
+- DOMAIN-SUFFIX,twimg.com,Proxy
+- DOMAIN-KEYWORD,blogspot,Proxy
+- DOMAIN-KEYWORD,whatsapp,Proxy
+- DOMAIN-KEYWORD,scholar,Proxy
+- DOMAIN-KEYWORD,glados,Proxy
+- DOMAIN-KEYWORD,wikipedia,Proxy
+- DOMAIN-SUFFIX,google.com,Proxy
+- DOMAIN-SUFFIX,facebook.com,Proxy
+- DOMAIN-SUFFIX,yahoo.com,Proxy
+- DOMAIN-SUFFIX,amazon.com,Proxy
+- DOMAIN-SUFFIX,vk.com,Proxy
+- DOMAIN-SUFFIX,microsoft.com,Proxy
+- DOMAIN-SUFFIX,reddit.com,Proxy
+- DOMAIN-SUFFIX,live.com,Proxy
+- DOMAIN-SUFFIX,zoom.us,Proxy
+- DOMAIN-SUFFIX,wikipedia.org,Proxy
+- DOMAIN-SUFFIX,myshopify.com,Proxy
+- DOMAIN-SUFFIX,instagram.com,Proxy
+- DOMAIN-SUFFIX,okezone.com,Proxy
+- DOMAIN-SUFFIX,office.com,Proxy
+- DOMAIN-SUFFIX,ebay.com,Proxy
+- DOMAIN-SUFFIX,bongacams.com,Proxy
+- DOMAIN-SUFFIX,blogspot.com,Proxy
+- DOMAIN-SUFFIX,yahoo.co.jp,Proxy
+- DOMAIN-SUFFIX,microsoftonline.com,Proxy
+- DOMAIN-SUFFIX,babytree.com,Proxy
+- DOMAIN-SUFFIX,amazon.co.jp,Proxy
+- DOMAIN-SUFFIX,adobe.com,Proxy
+- DOMAIN-SUFFIX,livejasmin.com,Proxy
+- DOMAIN-SUFFIX,stackoverflow.com,Proxy
+- DOMAIN-SUFFIX,dropbox.com,Proxy
+- DOMAIN-SUFFIX,msn.com,Proxy
+- DOMAIN-SUFFIX,yandex.ru,Proxy
+- DOMAIN-SUFFIX,linkedin.com,Proxy
+- DOMAIN-SUFFIX,twitter.com,Proxy
+- DOMAIN-SUFFIX,imgur.com,Proxy
+- DOMAIN-SUFFIX,amazonaws.com,Proxy
+- DOMAIN-SUFFIX,imdb.com,Proxy
+- DOMAIN-SUFFIX,whatsapp.com,Proxy
+- DOMAIN-SUFFIX,google.co.jp,Proxy
+- DOMAIN-SUFFIX,trello.com,Proxy
+- DOMAIN-SUFFIX,wordpress.com,Proxy
+- DOMAIN-SUFFIX,nytimes.com,Proxy
+- DOMAIN-SUFFIX,spotify.com,Proxy
+
+# > Google
+- DOMAIN,pagead2.googlesyndication.com,DIRECT
+- DOMAIN-SUFFIX,abc.xyz,Proxy
+- DOMAIN-SUFFIX,android.com,Proxy
+- DOMAIN-SUFFIX,androidify.com,Proxy
+- DOMAIN-SUFFIX,dialogflow.com,Proxy
+- DOMAIN-SUFFIX,autodraw.com,Proxy
+- DOMAIN-SUFFIX,capitalg.com,Proxy
+- DOMAIN-SUFFIX,certificate-transparency.org,Proxy
+- DOMAIN-SUFFIX,chrome.com,Proxy
+- DOMAIN-SUFFIX,chromeexperiments.com,Proxy
+- DOMAIN-SUFFIX,chromestatus.com,Proxy
+- DOMAIN-SUFFIX,chromium.org,Proxy
+- DOMAIN-SUFFIX,creativelab5.com,Proxy
+- DOMAIN-SUFFIX,debug.com,Proxy
+- DOMAIN-SUFFIX,deepmind.com,Proxy
+- DOMAIN-SUFFIX,firebaseio.com,Proxy
+- DOMAIN-SUFFIX,getmdl.io,Proxy
+- DOMAIN-SUFFIX,ggpht.com,Proxy
+- DOMAIN-SUFFIX,gmail.com,Proxy
+- DOMAIN-SUFFIX,gmodules.com,Proxy
+- DOMAIN-SUFFIX,godoc.org,Proxy
+- DOMAIN-SUFFIX,golang.org,Proxy
+- DOMAIN-SUFFIX,gstatic.com,Proxy
+- DOMAIN-SUFFIX,gv.com,Proxy
+- DOMAIN-SUFFIX,gwtproject.org,Proxy
+- DOMAIN-SUFFIX,itasoftware.com,Proxy
+- DOMAIN-SUFFIX,madewithcode.com,Proxy
+- DOMAIN-SUFFIX,material.io,Proxy
+- DOMAIN-SUFFIX,polymer-project.org,Proxy
+- DOMAIN-SUFFIX,admin.recaptcha.net,Proxy
+- DOMAIN-SUFFIX,recaptcha.net,Proxy
+- DOMAIN-SUFFIX,shattered.io,Proxy
+- DOMAIN-SUFFIX,synergyse.com,Proxy
+- DOMAIN-SUFFIX,tensorflow.org,Proxy
+- DOMAIN-SUFFIX,tiltbrush.com,Proxy
+- DOMAIN-SUFFIX,waveprotocol.org,Proxy
+- DOMAIN-SUFFIX,waymo.com,Proxy
+- DOMAIN-SUFFIX,webmproject.org,Proxy
+- DOMAIN-SUFFIX,webrtc.org,Proxy
+- DOMAIN-SUFFIX,whatbrowser.org,Proxy
+- DOMAIN-SUFFIX,widevine.com,Proxy
+- DOMAIN-SUFFIX,x.company,Proxy
+- DOMAIN-KEYWORD,google,Proxy
+- DOMAIN-SUFFIX,github.com,Proxy
+- DOMAIN-SUFFIX,github.io,Proxy
+
+
+- GEOIP,CN,DIRECT
+
+#NETFLIX
+- DOMAIN-SUFFIX,netflix.com,NETFLIX
+- DOMAIN-SUFFIX,netflix.net,NETFLIX
+- DOMAIN-SUFFIX,nflxext.com,NETFLIX
+- DOMAIN-SUFFIX,nflximg.com,NETFLIX
+- DOMAIN-SUFFIX,nflximg.net,NETFLIX
+- DOMAIN-SUFFIX,nflxso.net,NETFLIX
+- DOMAIN-SUFFIX,nflxvideo.net,NETFLIX
+
+# LAN
+- IP-CIDR,10.10.10.0/32,Proxy
+- IP-CIDR,127.0.0.0/8,DIRECT
+- IP-CIDR,10.0.0.0/8,DIRECT
+- IP-CIDR,17.0.0.0/8,DIRECT
+- IP-CIDR,100.64.0.0/10,DIRECT
+- IP-CIDR,172.16.0.0/12,DIRECT
+- IP-CIDR,192.168.0.0/16,DIRECT
+# RULE VERSION
+- DOMAIN,2020020202.version.clash.im,REJECT
+
+- MATCH,Proxy
+
+# =======最终规则 END====== #
