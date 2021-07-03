@@ -8,7 +8,6 @@ socks-port: 7891
 
 allow-lan: true
 
-# Rule / Global/ DIRECT (default is Rule)
 mode: Rule
 
 # set log level to stdout (default is info)
@@ -217,7 +216,7 @@ rules:
 # LAN
 - IP-CIDR,10.10.10.0/8,Proxy
 - IP-CIDR,127.0.0.0/8,DIRECT
-- IP-CIDR,10.0.0.0/8,DIRECT
+#- IP-CIDR,10.0.0.0/8,DIRECT
 - IP-CIDR,17.0.0.0/8,DIRECT
 - IP-CIDR,100.64.0.0/10,DIRECT
 - IP-CIDR,172.16.0.0/12,DIRECT
