@@ -36,7 +36,7 @@ proxies:
     type: ss
     server: fuxyz.ddnsfree.com
     port: 53333
-    cipher: chacha20
+    cipher: chacha20-ietf-poly1305
     password: fangyan
     # udp: true
 
